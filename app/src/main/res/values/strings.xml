@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WeChat Moments</string>
+    <string name="sender_name">Sender name</string>
+    <string name="content">Content</string>
+</resources>
