@@ -61,8 +61,6 @@ public class MainFragment extends Fragment implements ViewInterface {
 
     @Override
     public void onUserLoaded(User user) {
-        binding.userLayout.nickName.setText(user.getNick());
-        Glide.with(getActivity()).load(user.getAvator()).into(binding.userLayout.avator);
     }
 
     public void setListener() {
