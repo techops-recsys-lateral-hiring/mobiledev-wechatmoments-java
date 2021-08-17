@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements ViewInterface {
         adapter = new RecyclerViewAdapter();
         binding.recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayout.HORIZONTAL));
         binding.recyclerView.setAdapter(adapter);
-        presenter = new Presenter(this);
+        presenter = Presenter.createPresenter(this);
         presenter.loadData();
         setListener();
         return view;
