@@ -5,6 +5,7 @@ import static com.example.wechatmoments.data.Constants.LABEL;
 import android.util.Log;
 
 import com.example.wechatmoments.data.DataModule;
+import com.example.wechatmoments.data.ModuleInterface;
 import com.example.wechatmoments.data.entity.Tweet;
 import com.example.wechatmoments.data.entity.User;
 import com.example.wechatmoments.view.ViewInterface;
@@ -19,7 +20,9 @@ public class Presenter implements PresenterInterface {
 
     private static final int TOTAL_NUM_OF_TWEETS = 15;
 
-    private final ViewInterface viewInterface;
+    private ViewInterface viewInterface;
+
+    private ModuleInterface dataModule;
 
     private int record = INIT_NUM_OF_TWEETS;
 
@@ -30,17 +33,41 @@ public class Presenter implements PresenterInterface {
 
     private final List<Tweet> backUpTweets = new ArrayList<>();
 
-    private final DataModule dataModule = new DataModule(this);
+    Presenter() {
+    }
 
-    public Presenter(ViewInterface viewInterface) {
+    void setView(ViewInterface viewInterface) {
         this.viewInterface = viewInterface;
+    }
+
+    void setDataModule(ModuleInterface moduleInterface) {
+        this.dataModule = moduleInterface;
+    }
+
+    List<Tweet> getFirstTweets() {
+        return firstTweets;
+    }
+
+    List<Tweet> getInitTweets() {
+        return initTweets;
+    }
+
+    List<Tweet> getBackUpTweets() {
+        return backUpTweets;
+    }
+
+    public static PresenterInterface createPresenter(ViewInterface viewInterface) {
+        Presenter presenter = new Presenter();
+        presenter.viewInterface = viewInterface;
+        presenter.dataModule = new DataModule(presenter);
+
+        return presenter;
     }
 
     public void loadData() {
         dataModule.getTweets("jsmith");
         dataModule.getUser("jsmith");
     }
-
 
     @Override
     public void loadTweetsSuccess(List<Tweet> tweets) {
@@ -50,7 +77,6 @@ public class Presenter implements PresenterInterface {
             firstTweets.add(backUpTweets.get(i));
             viewInterface.onTweetsLoaded(firstTweets);
         }
-        Log.i(LABEL, "loadTweetsSuccess");
     }
 
     @Override

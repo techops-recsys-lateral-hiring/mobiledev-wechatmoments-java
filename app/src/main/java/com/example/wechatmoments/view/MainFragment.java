@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements ViewInterface {
         adapter = new RecyclerViewAdapter();
         binding.recyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayout.HORIZONTAL));
         binding.recyclerView.setAdapter(adapter);
-        presenter = new Presenter(this);
+        presenter = Presenter.createPresenter(this);
         presenter.loadData();
         setListener();
         return view;
@@ -61,8 +61,6 @@ public class MainFragment extends Fragment implements ViewInterface {
 
     @Override
     public void onUserLoaded(User user) {
-        binding.userLayout.nickName.setText(user.getNick());
-        Glide.with(getActivity()).load(user.getAvator()).into(binding.userLayout.avator);
     }
 
     public void setListener() {

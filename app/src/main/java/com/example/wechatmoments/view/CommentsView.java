@@ -56,7 +56,7 @@ public class CommentsView extends LinearLayout {
         TextView textView = new TextView(getContext());
         textView.setTextSize(SIZE);
         textView.setTextColor(COLOR);
-        String str = "<font color='#6A5ACD'>" + item.getSender().getNick() + "</font> : " + item.getContent();
+        String str = item.getContent();
         textView.setText(Html.fromHtml(str));
         textView.setHighlightColor(getResources().getColor(android.R.color.holo_blue_dark));
         return textView;
